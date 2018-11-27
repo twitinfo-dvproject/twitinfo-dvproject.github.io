@@ -1,452 +1,197 @@
 <!DOCTYPE html>
+<html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>Issues Ratings</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://d3js.org/queue.v1.min.js"></script>
-<script src="https://d3js.org/topojson.v1.min.js"></script>
-<script src="d3-tip.js"></script>
-<script src="chart.js"></script>
-<script src="jquery.min.js"></script>
+	<title>Booking Form HTML Template</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<style>
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Cantata+One" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Imprima" rel="stylesheet">
 
-body {
-  font: 10px sans-serif;
-}
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
 
-.axis path,
-.axis line, 
-.axis1 path,
-.axis1 line {
-  fill: none;
-  stroke: #E6E7E8;
-  shape-rendering: crispEdges;
-}
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="css/boots.css" />
 
-.x.axis path, .x.axis1 path {
-  display: none;
-}
+	
 
-.line {
-  fill: none;
-  stroke-width: 1.5px;
-}
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
 
-.legend-box {
-  cursor: pointer;  
-}
-
-#mouse-tracker {
-  stroke: #E6E7E8;
-  stroke-width: 1px;
-}
-
-.hover-line { 
-  stroke: #E6E7E8;
-  fill: none;
-  stroke-width: 1px;
-  left: 10px;
-  shape-rendering: crispEdges;
-  opacity: 1e-6;
-}
-
-.hover-text {
-  stroke: none;
-  font-size: 30px;
-  font-weight: bold;
-  fill: #000000;
-}
-
-.tooltip {
-  font-weight: normal;
-}
-
-.brush .extent {
-  stroke: #FFF;
-  shape-rendering: crispEdges;
-}
-
-#header{
-  border: 2px solid; 
-}
-
-#header #title,
-#header #caption{
-  margin-bottom: 20px;
-}
-
-#header #caption h2{
-  font-weight: bold;
-}
-
-#text h3{
-  font-weight: bold;
-}
-
-#graphs{
-  display: flex;
-}
-
-#canvas {
-    position: relative; /* To allow the tooltip to be positioned relative to the div */
-    display: block;
-  	border: 1px solid;
-}
-
-/*
-#sentiment {
-    position: relative;  
-    display: block;
-  	border: 1px solid;
-  	top: 800px
-}
-*/
-
-
-  .names {
-  fill: none;
-  stroke: #fff;
-  stroke-linejoin: round;
-  }
-
-    /* Tooltip CSS */
-    .d3-tip {
-    line-height: 1.5;
-    font-weight: 400;
-    font-family:"avenir next", Arial, sans-serif;
-    padding: 6px;
-    background: rgba(0, 0, 0, 0.6);
-    color: #FFA500;
-    border-radius: 1px;
-    pointer-events: none;
-    }
-
-    /* Creates a small triangle extender for the tooltip */
-    .d3-tip:after {      
-      box-sizing: border-box;
-      display: inline;
-      font-size: 8px;
-      width: 100%;
-      line-height: 1.5;
-      color: rgba(0, 0, 0, 0.6);
-      position: absolute;
-      pointer-events: none;
-      
-    }
-
-    /* Northward tooltips */
-    .d3-tip.n:after {
-      content: "\25BC";
-      margin: -1px 0 0 0;
-      top: 100%;
-      left: 0;
-      text-align: center;
-    }
-
-    /* Eastward tooltips */
-    .d3-tip.e:after {
-      content: "\25C0";
-      margin: -4px 0 0 0;
-      top: 50%;
-      left: -8px;
-    }
-
-    /* Southward tooltips */
-    .d3-tip.s:after {
-      content: "\25B2";
-      margin: 0 0 1px 0;
-      top: -8px;
-      left: 0;
-      text-align: center;
-    }
-
-    /* Westward tooltips */
-    .d3-tip.w:after {
-      content: "\25B6";
-      margin: -4px 0 0 -1px;
-      top: 50%;
-      left: 100%;
-    }
-
-/*    text{
-      pointer-events:none;
-    }*/
-
-    .details{
-      color:white;
-    }
-  
-  
-
-  
-/* Bar chart*/
-
-.highlight{
-  fill: red !important;
-}
-
-body, h1, h2, h3, p {
-  margin: 0;
-  padding: 0;
-  font-family: 'Source Sans Pro', sans-serif;
-  color: #333;
-  font-weight: 400;
-}
-
-#content {
-  padding: 20px;
-  text-align: left;
-  border: 1px solid;
-}
-
-h1 {
-  line-height: 1em;
-  font-size: 1.75em;
-  font-weight: 900;
-  color: #000;
-}
-
-p {
-  margin: 5px 0px 0px 0px;
-}
-
-.domain {
-  fill: none;
-  stroke-width: 0;
-}
-
-#menu {
-  margin: 5px 0px 0px 0px;
-  display: block;
-}
-
-#unit {
-  margin: 10px 0px 5px 0px;
-  font-size: 0.9em;
-}
-
-select {
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 0.9em;
-  color: #333;
-  font-weight: 400;
-}
-
-.bar {
-  fill: #2980B9;
-}
-
-.bar:hover {
-  fill: #2C3E50;
-}
-
-.axis line {
-  stroke: #eee;
-  stroke-width: 1;
-  opacity: 0.5;
-  shape-rendering: crispEdges;
-}
-
-.g-baseline line {
-  stroke: #333;
-  stroke-width: 2;
-  opacity: 1;
-  shape-rendering: crispEdges;
-}
-
-.x.axis .tick text, .y.axis .tick text {
-  fill: #333;
-  font-size: 0.9em;
-}
-
-</style>
 </head>
 
 <body>
+	<div id="booking" class="section">
+		<div class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="booking-cta">
+						<h1>!!Lets Get Tweet Info!!</h1>
+					</div>
+					<div class="booking-form">
+						<form>
+							<div class="col-md-8">
+								<div class="form-group">
+									<span class="form-label">Do you have a HashTag in mind??</span>
+									<input class="form-control" type="text" placeholder="Enter HashTag">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<span class="form-label"> Or Choose From The Populars</span>
+									<select class="form-control">
+										<option>RealDonaldTrump</option>
+										<option>BarakObama</option>
+										<option>SirJadeja</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+									</select>
+									<span class="select-arrow"></span>
+								</div>
+							</div>
 
-  <div id="myDiv"></div>
-<script>
+							<div class="col-md-4">
+								<div class="form-group">
+									<span class="form-label">From Date</span>
+									<input class="form-control" type="date" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<span class="form-label">To Date</span>
+									<input class="form-control" type="date" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-btn">
+									<button class="submit-btn" onclick="location.href = 'final.html';" >Lets Analyse</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-Plotly.d3.csv("linetest.csv", function(err, rows){
+<div class="w3-row-padding w3-padding-16 w3-theme-l5 w3-center" id="work">
 
-  function unpack(rows, key) {
-  return rows.map(function(row) { return row[key]; });
+<h1 ><u style="text-decoration:bold; color: #00008b;">Meet the Picassos:</u></h1>
+
+<div class="w3-row" style="text-decoration: bold; color: #00008b; font-style: 'Cantata One', serif;"><br>
+
+<div class="w3-quarter">
+  <img src="img/saumya.jpeg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+  <h3>Saumya Priya</h3>
+  <h6>saumya@asu.edu</h6>
+  <h4><a href="http://linkedin.com/in/saumyaPriya">LinkedIn</a></h4>
+</div>
+
+<div class="w3-quarter">
+  <img src="img/sam.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+  <h3>Sam Sunder Golla</h3>
+  <h6>sgolla2@asu.edu</h6>
+  <h4><a href="https://www.linkedin.com/in/samsundergolla12a6bb68/">LinkedIn</a></h4>
+</div>
+
+<div class="w3-quarter">
+  <a href="resume/pranshu_resume.pdf" target="_blank">
+  <img src="img/Saurabh.jpeg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"></a>
+  <h3>Saurabh Goyal</h3>
+  <h6>sgoyal@asu.edu</h6>
+  <h4><a href="https://www.linkedin.com/in/saur30490">LinkedIn</a></h4>
+</div>
+
+<div class="w3-quarter">
+  <a href="resume/anto_resume.pdf" target="_blank">
+  <img src="img/Anupriya.jpeg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity"></a>
+  <h3>Anupriya Gupta</h3>
+  <h6>agupta224@asu.edu</h6>
+  <h4><a href="https://www.kaggle.com/kemical/kickstarter-projects">LinkedIn</a></h4>
+</div>
+</div>
+
+</div>
+
+
+<
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+
+<style>
+html {
+  box-sizing: border-box;
 }
 
-  
-var trace1 = {
-  type: "scatter",
-  mode: "lines",
-  name: 'AAPL High',
-  x: unpack(rows, 'Date'),
-  y: unpack(rows, 'AAPL.High'),
-  line: {color: '#17BECF'}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
 
-var data = [trace1];
-    
-var layout = {
-  title: 'Time Series with Rangeslider', 
-  xaxis: {
-    autorange: true, 
-    range: ['2015-07-02', '2017-07-30'], 
-    rangeselector: {buttons: [
-        {
-          label: '1day', 
-          step: 'day', 
-          stepmode: 'backward'
-        } 
-      ]}, 
-    rangeslider: {range: ['2017-07-01', '2017-07-31']}, 
-    type: 'date'
-  }, 
-  yaxis: {
-    autorange: true, 
-    range: [86.8700008333, 138.870004167], 
-    type: 'linear'
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
   }
-};
-
-Plotly.newPlot('myDiv', data, layout);
-})
-
-</script>
-  <div id='graphs'style="float: left;width: 680px">
-    <div id="canvas"></div>  
-  </div>
-
-<script>
-
-
-//Map chart
-var format = d3.format(",");
-
-// Set tooltips
-var tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .offset([-10, 0])
-            .html(function(d) {
-              return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Tweet_Count: </strong><span class='details'>" + format(d.population) +"</span>";
-            })
-
-var margin = {top: 0, right: 0, bottom: 0, left: 0};
-            width = 700 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
-
-var color = d3.scale.threshold()
-    .domain([10000,100000,500000,1000000,5000000,10000000,50000000,100000000,500000000,1500000000])
-    .range(["#d73027","#a6d96a","#fdae61","#fee08b","#ffffbf","#d9ef8b","#f46d43","#66bd63","#1a9850", "#bc80bd","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462"]);
-
-var path = d3.geo.path();
-
-var svg = d3.select("#canvas")
-            .append("svg")
-            .attr("width", width+350)
-            .attr("height", height+150)
-            .append('g')
-            .attr('class', 'map');
-
-var projection = d3.geo.mercator()
-                   .scale(130)
-                  .translate( [(width/2)+100, (height / 1.5)+50]);
-
-var path = d3.geo.path().projection(projection);
-
-svg.call(tip);
-
-queue()
-    .defer(d3.json, "world_countries.json")
-    .defer(d3.tsv, "world_population.tsv")
-    .await(ready);
-  
-
-function ready(error, data, population) {
-  var populationById = {};
-
-  population.forEach(function(d) { populationById[d.id] = +d.population; });
-  data.features.forEach(function(d) { d.population = populationById[d.id] });
-
-  svg.append("g")
-      .attr("class", "countries")
-    .selectAll("path")
-      .data(data.features)
-    .enter().append("path")
-      .attr("d", path)
-      .style("fill", function(d) { return color(populationById[d.id]); })
-      .style('stroke', 'white')
-      .style('stroke-width', 1.5)
-      .style("opacity",0.8)
-      // tooltips
-        .style("stroke","white")
-        .style('stroke-width', 0.3)
-        .on('mouseenter',function(d){
-          tip.show(d);
-      //console.log(d.properties.name);
-      //country = d.id;
-      
-      all_bars.map(function(e){
-      if(d.properties.name === e.country){
-        //console.log($(e).country);
-        e.bargraph.addClass("highlight");
-      }
-      });
-          d3.select(this)
-            .style("opacity", 1)
-            .style("stroke","white")
-            .style("stroke-width",3);
-        })
-        .on('mouseout', function(d){
-          tip.hide(d);
-      
-      all_bars.map(function(e){
-      e.bargraph.removeClass("highlight");
-      }); 
-          d3.select(this)
-            .style("opacity", 0.8)
-            .style("stroke","white")
-            .style("stroke-width",0.3);
-        });
-        // Markers
-for (var j = 0; j < features.length; j++) {
-  
-  // check if has value and draw line
-  if (features[j].geometry.properties.value > 0) {
-    
-    var v = features[j].geometry.properties.value;
-    var vSize = d3.scale.linear()
-          .domain([0,25])
-          .range([0.5,8]);
-    var vOp = d3.scale.linear()
-          .domain([0,25])
-          .range([0.25,0.75]);
-    
-    // Random colour
-    var randColour = ['#31558d', '#c52b2d'][Math.floor(Math.random() * 2)];     
-    
-    var x = projection(features[j].geometry.coordinates)[0],
-      y = projection(features[j].geometry.coordinates)[1];
-
-  }
-
 }
 
-
-  svg.append("path")
-      .datum(topojson.mesh(data.features, function(a, b) { return a.id !== b.id; }))
-       // .datum(topojson.mesh(data.features, function(a, b) { return a !== b; }))
-      .attr("class", "names")
-      .attr("d", path);
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-</script>
 
-<div align='right' id='sentiment'>
-<image src='Figure_1.png' height='300' width='400'></image> </div>
-Figure_1.png' height='300' width='400'></image> </div>
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
 
 </body>
 </html>
