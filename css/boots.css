@@ -1029,7 +1029,6 @@ body {
  font-size:14px;
  line-height:1.42857143;
  color:#333;
- background-color:#2887c1
 }
 button,input,select,textarea {
  font-family:inherit;
@@ -1115,10 +1114,6 @@ hr {
  font-weight:400;
  line-height:1;
  color:#777
-}
-.h1,.h2,.h3,h1,h2,h3 {
- margin-top:20px;
- margin-bottom:10px
 }
 .h1 .small,.h1 small,.h2 .small,.h2 small,.h3 .small,.h3 small,h1 .small,h1 small,h2 .small,h2 small,h3 .small,h3 small {
  font-size:65%
